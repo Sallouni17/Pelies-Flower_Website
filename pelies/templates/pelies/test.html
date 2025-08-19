@@ -1,0 +1,65 @@
+{% extends 'pelies/base.html' %}
+{% load static %}
+{% block content %}
+        <!-- Hero Section -->
+        <section class="hero">
+            <img src="{% static 'pelies/images/background.webp' %}" alt="Banner" class="hero-img">
+            <div class="hero-overlay">
+                <h1>Fresh flowers for <em>any</em> <br>budget.</h1>
+                <a href="#" class="cta-btn">Shop Flowers</a>
+            </div>
+            <div class="testimonial">
+                
+                <img src="{% static 'pelies/images/test.webp' %}" alt="Banner">
+                <div class="testimonial-content">
+                    <p>Here at Hales, we work with a small list of carefully chosen producers,<br>  source the freshest hothouse blooms, wildflowers and seasonal greenery and <br> display them in custom pottery and glassware.</p>
+                </div>
+            </div>
+        </section>
+
+         <!-- "Best Sellers" -->
+        <section class="best-sellers">
+            <div class="best-sellers-intro">
+                <h2>Best sellers</h2>
+                <p>Transform your home or office with our <br>gorgeous best selling seasonal arrangements.</p>
+                <a class="cta-black" href="#">Shop Best Sellers</a>
+            </div>
+            <div class="best-sellers-list">
+                <div class="card">
+                    <img src="{% static 'pelies/images/bs1.webp' %}">
+                    <p class="title">Fantin Arrangement</p>
+                    <p class="price">₹75.00</p>
+                </div>
+                <div class="card">
+                    <img src="{% static 'pelies/images/bs2.webp' %}">
+                    <p class="title">Van Aelst Bouquet</p>
+                    <p class="price">₹75.00</p>
+                </div>
+                <div class="card">
+                    <img src="{% static 'pelies/images/bs3.webp' %}">
+                    <p class="title">Hiroshige Arrangement</p>
+                    <p class="price">₹75.00</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- "What we do" Section -->
+        <section class="what-we-do">
+            <h2>What we do</h2>
+            <p>It all begins with an idea. Maybe you want to launch a business.</p>
+            <div class="services">
+                <div class="service">
+                    <img src="{% static 'pelies/images/fa1.webp' %}">
+                    <div>Flower arrangements</div>
+                </div>
+                <div class="service">
+                    <img src="{% static 'pelies/images/gifts.webp' %}">
+                    <div>Gifts</div>
+                </div>
+                <div class="service">
+                    <img src="{% static 'pelies/images/weddings.webp' %}">
+                    <div>Weddings</div>
+                </div>
+            </div>
+        </section>
+{% endblock content %}

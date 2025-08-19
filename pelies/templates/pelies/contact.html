@@ -1,0 +1,129 @@
+{% extends 'pelies/base.html' %}
+
+{% block content %}
+<style>
+    .contact-section {
+    display: flex;
+    justify-content: space-between;
+    padding: 4rem 8%;
+    gap: 3rem;
+    }
+
+    .contact-left {
+    flex: 1;
+    }
+
+    .contact-left h1 {
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+    }
+
+    .contact-left p {
+    margin-bottom: 1rem;
+    color: #333;
+    }
+
+    .contact-info {
+    font-weight: bold;
+    }
+
+    .contact-right {
+    flex: 1;
+    }
+
+    form label {
+    display: block;
+    font-size: 0.9rem;
+    margin: 1rem 0 0.5rem;
+    }
+
+    form label span {
+    color: #555;
+    font-size: 0.8rem;
+    }
+
+    .name-fields {
+    display: flex;
+    gap: 1rem;
+    }
+
+    input, select, textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 1rem;
+    }
+
+    button {
+    margin-top: 1.5rem;
+    padding: 0.8rem 2rem;
+    background: black;
+    color: white;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    }
+
+    button:hover {
+    background: #333;
+    }
+
+    /* Responsive */
+    @media(max-width: 900px) {
+    .contact-section {
+        flex-direction: column;
+    }
+
+    .name-fields {
+        flex-direction: column;
+    }
+    }
+</style>
+
+<!-- Contact Section -->
+  <section class="contact-section">
+    <div class="contact-left">
+      <h1>We would love to hear from you.</h1>
+      <p>
+        It all begins with an idea. Maybe you want to launch a business.
+        Maybe you want to turn a hobby into something more. Or maybe you
+        have a creative project to share with the world. Whatever it is,
+        the way you tell your story online can make all the difference.
+      </p>
+      <p class="contact-info">
+        email@example.com <br>
+        (555) 555-5555
+      </p>
+    </div>
+
+    <div class="contact-right">
+      <form>
+        <label for="fname">Name <span>(required)</span></label>
+        <div class="name-fields">
+          <input type="text" id="fname" placeholder="First Name" required>
+          <input type="text" id="lname" placeholder="Last Name" required>
+        </div>
+
+        <label for="email">Email <span>(required)</span></label>
+        <input type="email" id="email" required>
+
+        <label for="phone">Phone <span>(required)</span></label>
+        <input type="tel" id="phone" required>
+
+        <label for="service">Service Needed <span>(required)</span></label>
+        <select id="service" required>
+          <option value="">Select an option</option>
+          <option value="consulting">Consulting</option>
+          <option value="design">Design</option>
+          <option value="development">Development</option>
+        </select>
+
+        <label for="message">Message <span>(required)</span></label>
+        <textarea id="message" rows="5" required></textarea>
+
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </section>
+{% endblock %}

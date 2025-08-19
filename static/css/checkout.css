@@ -1,0 +1,129 @@
+/* Checkout page container */
+.checkout-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    margin: 40px auto;
+    max-width: 1200px;
+}
+
+/* Left: form */
+.checkout-form {
+    flex: 1;
+    min-width: 300px;
+}
+
+.checkout-section {
+    background: white;
+    padding: 20px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.checkout-section h3 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.checkout-section label {
+    font-size: 14px;
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.checkout-section input[type="text"],
+.checkout-section input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.checkout-section small {
+    display: block;
+    font-size: 12px;
+    color: #777;
+    margin-bottom: 10px;
+}
+
+.checkout-section input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+.checkout-section button {
+    background: #000;
+    color: white;
+    border: none;
+    padding: 12px;
+    width: 100%;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.checkout-section button:hover {
+    background: #333;
+}
+
+/* Right: order summary */
+.order-summary {
+    flex: 1;
+    min-width: 300px;
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 6px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.order-summary h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.order-summary .order-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.order-summary .order-item img {
+    border-radius: 4px;
+}
+
+.order-summary p {
+    margin: 0;
+    font-size: 14px;
+}
+
+.order-summary hr {
+    border: 0;
+    height: 1px;
+    background: #ddd;
+    margin: 15px 0;
+}
+
+.order-summary h4 {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+/* Secure Checkout Text */
+.order-summary div span {
+    color: #666;
+    letter-spacing: 1px;
+}
+
+/* Responsive layout */
+@media (max-width: 768px) {
+    .checkout-container {
+        flex-direction: column;
+    }
+}
+
+

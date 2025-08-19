@@ -1,0 +1,114 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account - Hales Flowers</title>
+    <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+    <style>
+        
+    </style>
+</head>
+<body>
+
+<div class="signup-container">
+    <h2>Create Account</h2>
+
+    {% if messages %}
+        <div class="error-messages">
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <form method="POST" action="{% url 'signup' %}">
+        {% csrf_token %}
+        <input type="text" name="first_name" placeholder="First Name" class="form-input" required>
+        <input type="text" name="last_name" placeholder="Last Name" class="form-input" required>
+        <input type="email" name="email" placeholder="Email" class="form-input" required>
+        <input type="password" name="password1" placeholder="Create Password" class="form-input" required>
+        <input type="password" name="password2" placeholder="Re-type Password" class="form-input" required>
+        <button type="submit" class="signup-btn">Create Account</button>
+    </form>
+
+    <div class="signup-links">
+        Already have an account? <a href="{% url 'signin' %}">Sign In</a>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('form');
+    const fields = form.querySelectorAll('input');
+    
+    // Create or get error span below each field
+    function getErrorContainer(input) {
+        let errorSpan = input.nextElementSibling;
+        if (!errorSpan || !errorSpan.classList.contains('error-text')) {
+            errorSpan = document.createElement('span');
+            errorSpan.className = 'error-text';
+            errorSpan.style.color = '#a30000';
+            errorSpan.style.fontSize = '13px';
+            errorSpan.style.display = 'block';
+            errorSpan.style.marginTop = '-10px';
+            errorSpan.style.marginBottom = '10px';
+            input.insertAdjacentElement('afterend', errorSpan);
+        }
+        return errorSpan;
+    }
+
+    form.addEventListener('submit', function(event) {
+        let valid = true;
+
+        // Clear all previous errors
+        form.querySelectorAll('.error-text').forEach(e => e.textContent = '');
+
+        const firstName = form.first_name.value.trim();
+        const lastName = form.last_name.value.trim();
+        const email = form.email.value.trim();
+        const password1 = form.password1.value;
+        const password2 = form.password2.value;
+
+        // First name validation
+        if (firstName.length === 0) {
+            getErrorContainer(form.first_name).textContent = 'First Name is required.';
+            valid = false;
+        } else if (firstName.includes(' ')) {
+            getErrorContainer(form.first_name).textContent = 'First Name cannot contain spaces.';
+            valid = false;
+        }
+
+        // Last name validation
+        if (lastName.length === 0) {
+            getErrorContainer(form.last_name).textContent = 'Last Name is required.';
+            valid = false;
+        }
+
+        // Email validation
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(email)) {
+            getErrorContainer(form.email).textContent = 'Please enter a valid email.';
+            valid = false;
+        }
+
+        // Password checks
+        if (password1.length < 6) {
+            getErrorContainer(form.password1).textContent = 'Password must be at least 6 characters.';
+            valid = false;
+        }
+
+        if (password1 !== password2) {
+            getErrorContainer(form.password2).textContent = 'Passwords do not match.';
+            valid = false;
+        }
+
+        if (!valid) {
+            event.preventDefault();
+        }
+    });
+});
+</script>
+</body>
+</html>

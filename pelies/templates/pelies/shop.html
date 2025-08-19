@@ -1,0 +1,29 @@
+{% extends 'pelies/base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- Filters -->
+<section class="filters">
+    <a href="#" class="filter-link active">All</a>
+    <span class="filter-sep">|</span>
+    <a href="#" class="filter-link">Arrangement</a>
+    <span class="filter-sep">|</span>
+    <a href="#" class="filter-link">Bouquet</a>
+</section>
+
+<!-- Product Grid -->
+<div class="shop-grid">
+    {% for product in products %}
+    <div class="product-card">
+        <a href="{% url 'product_detail' product.id %}" class="product-name">
+            <img src="{{ product.imageURL }}" alt="{{ product.name }}">
+        </a>
+        <div class="product-info">
+            <a href="{% url 'product_detail' product.id %}" class="product-name">{{ product.name }}</a>
+            <p class="product-price">₹{{ product.price|floatformat:2 }}</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock content %}

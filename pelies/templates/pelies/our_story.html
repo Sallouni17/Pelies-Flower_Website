@@ -1,0 +1,200 @@
+{% extends 'pelies/base.html' %}
+{% load static %}
+
+{% block content %}
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Times New Roman', serif;
+            color: #000;
+            background: white;
+            line-height: 1.6;
+        }
+
+        /* Hero Section */
+        .first {
+            text-align: center;
+            padding: 4rem 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .first h1 {
+            font-size: 3.5rem;
+            font-weight: normal;
+            font-family: 'Dorsey', serif;
+            margin-bottom: 2rem;
+        }
+
+        .first img {
+            width: 100%;
+            max-width: 900px;
+            height: auto;
+            display: block;
+            margin: 2rem auto;
+        }
+
+        /* Our Story Section */
+        .our-story {
+            max-width: 1100px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 3rem;
+        }
+
+        .our-story .text {
+            flex: 1;
+            font-size: 1.3rem;
+            line-height: 1.7;
+        }
+
+        .our-story .image {
+            flex: 1;
+            width: 314px; 
+            height: 221px;
+        }
+
+        .our-story .image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Picked with Care Section */
+        .picked-care {
+            max-width: 1100px;
+            margin-top: 2rem;
+            padding: 3rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 3rem;
+        }
+
+        .picked-care .text {
+            flex: 1;
+            font-size: 1.3rem;
+            line-height: 1.7;
+        }
+
+       {% comment %} .image {
+            flex: 1;
+       } {% endcomment %}
+
+        .image img {
+            width: 964px; 
+            height: 608px;
+            display: block;
+            justify-self: right;
+        }
+
+        /* Shop Categories */
+        .shop-categories {
+            display: flex;
+            justify-content: center;
+            gap: 5rem;
+            margin: 4rem auto;
+            padding: 0 2rem;
+            max-width: 1100px;
+        }
+
+        .shop-category {
+            text-align: center;
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .shop-category img {
+            width: 350px;
+            height: 500px;
+            display: block;
+            border-radius: 8px;
+            gap: 1rem;
+        }
+
+        .shop-category h3 {
+            margin-top: 1rem;
+            font-size: 1.2rem;
+            font-weight: normal;
+        }
+
+        /* Testimonial */
+        .testimonial {
+            background-color: #2d3a2c;
+            color: white;
+            padding: 5rem 2rem;
+            text-align: center;
+            width: 70rem;
+            margin: 0 auto;
+        }
+
+        .testimonial blockquote {
+            font-size: 1.4rem;
+            font-style: italic;
+            margin-bottom: 2rem;
+        }
+
+        .testimonial cite {
+            font-size: 0.9rem;
+            font-style: normal;
+            opacity: 0.8;
+        }
+    </style>
+
+    <!-- Hero Section -->
+    <section class="first">
+        <h1>These aren't your grandmother's flower arrangements.</h1>
+        <img src="{% static 'pelies/images/hero.webp' %}" alt="Flower Arrangement by Florist">
+    </section>
+
+    <!-- Our Story Section -->
+    <section class="our-story">
+        <div class="text">
+            <h1>Our story</h1>
+            <p>It all begins with an idea. Maybe you want to launch a business. Maybe you want to turn a hobby into something more. Or maybe you have a creative project to share with the world. Whatever it is, the way you tell your story online can make all the difference.</p>
+            <p>Don't worry about sounding professional. Sound like you. There are over 1.5 billion websites out there, but your story is what's going to separate this one from the rest. If you read the words back and don't hear your own voice in your head, that's a good sign you still have more work to do.</p>
+        </div>
+        <div class="image">
+            <img src="{% static 'pelies/images/frame.webp' %}" alt="Floral Illustration">
+        </div>
+    </section>
+
+    <!-- Picked with Care Section -->
+    <section class="picked-care">
+        <div class="text">
+            <h1>Picked with care</h1>
+            <p>Be clear, be confident and don't overthink it. The beauty of your story is that it's going to continue to evolve and your site can evolve with it. Your goal should be to make it feel right for right now. Later will take care of itself. It always does.</p>
+            <p>It all begins with an idea. Maybe you want to launch a business. Maybe you want to turn a hobby into something more. Or maybe you have a creative project to share with the world. Whatever it is, the way you tell your story online can make all the difference.</p>
+        </div>
+    </section>
+    <div class="image">
+            <img src="{% static 'pelies/images/florist.webp' %}" alt="Florist arranging Flowers">
+    </div>
+
+    <!-- Shop Categories -->
+    <section class="shop-categories">
+        <div class="shop-category">
+            <img src="{% static 'pelies/images/flower1.webp' %}" alt="Bouquet">
+            <h3>Bouquets</h3>
+        </div>
+        <div class="shop-category">
+            <img src="{% static 'pelies/images/flower2.webp' %}" alt="Arrangement">
+            <h3>Arrangements</h3>
+        </div>
+        <div class="shop-category">
+            <img src="{% static 'pelies/images/flower3.webp' %}" alt="Events">
+            <h3>Events</h3>
+        </div>
+    </section>
+
+    <!-- Testimonial -->
+    <section class="testimonial">
+        <blockquote>
+            “From start to finish, working with Zulima was pleasant and stress free. The florals for the wedding were perfect and beyond what we could have imagined.”
+        </blockquote>
+        <cite>— Jeanine S., Events Customer</cite>
+    </section>
+{% endblock %}
