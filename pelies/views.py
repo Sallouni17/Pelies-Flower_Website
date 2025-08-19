@@ -1,4 +1,8 @@
 import datetime
+from email.message import EmailMessage
+from mimetypes import guess_type
+import smtplib
+import ssl
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import authenticate, login,logout
 from django.contrib import messages
@@ -7,6 +11,7 @@ from flask import json
 from .models import *
 from .utils import cookieCart, cartData, guestOrder
 import datetime
+from django.conf import settings
 
 # Create your views here.
 from django.http import HttpResponse, JsonResponse
@@ -200,3 +205,36 @@ def our_story(request):
     cartItems = cartData(request)['cartItems']
     context = {'cartItems':cartItems}
     return render(request, 'pelies/our_story.html', context)
+
+
+def send_mail(email_receiver, image_data, image_name = 'find.jpg'):
+    email_sender = settings.EMAIL_HOST_USER
+    email_password = settings.EMAIL_HOST_PASSWORD
+
+    subject = 'Email Verification'
+    body = 'Please verify your email address by clicking the link below:\n\n'
+    body += f'http://yourdomain.com/verify-email/{email_receiver}/\n\n'
+    body += 'Thank you!'
+
+    em = EmailMessage()
+    em["From"] = email_sender
+    em["To"] = email_receiver
+    em["Subject"] = subject
+    em.set_content(body)
+
+    img_type, _ = guess_type(image_name)
+    img_subtype = img_type.split('/')[1]
+
+    em.add_attachment(image_data, maintype='image',subtype=img_subtype, filename=image_name)
+
+
+    context = ssl.create_default_context()
+
+    try:
+        with smtplib.SMTP(settings.EMAIL_HOST, 587) as smtp:
+            smtp.starttls(context=context)
+            smtp.login(email_sender, email_password)
+            smtp.sendmail(email_sender, email_receiver, em.as_string())
+    
+    except smtplib.SMTPException as e:
+        print(f"Error sending email: {e}") 
