@@ -2,191 +2,189 @@
 {% load static %}
 
 {% block content %}
-	<div class="checkout-container" style="display: flex; gap: 40px;">
+<div class="checkout-container" style="display: flex; gap: 40px;">
 
-		<!-- Left: Checkout Steps -->
-		<div class="checkout-form" style="flex: 1;">
+	<!-- Left: Checkout Steps -->
+	<div class="checkout-form" style="flex: 1;">
 
-			<!-- Step 1: Email -->
-			<div class="checkout-section">
-				<h3>Your Email</h3>
-				<label>Email</label>
-				<input type="email" name="email" placeholder="Email address" required class="form-control">
-				<small>You'll receive receipts and notifications at this email</small>
-				<div>
-					<input type="checkbox" id="newsletter">
-					<label for="newsletter">Sign up to receive news and updates</label>
-				</div>
-				<button class="btn btn-dark btn-block">Continue</button>
+		<!-- Step 1: Email -->
+		<div id="user-info" class="checkout-section">
+			<h3>Your Email</h3>
+			<label>Email</label>
+			<input type="email" name="email" placeholder="Email address" required class="form-control">
+			<small>You'll receive receipts and notifications at this email</small>
+			<div>
+				<input type="checkbox" id="newsletter">
+				<label for="newsletter">Sign up to receive news and updates</label>
 			</div>
-
-			<!-- Step 2: Delivery -->
-			<div class="checkout-section">
-				<h3>Delivery</h3>
-				<input type="text" name="name" placeholder="Full Name" class="form-control" required>
-				<input type="text" name="address" placeholder="Address" class="form-control" required>
-				<input type="text" name="city" placeholder="City" class="form-control" required>
-				<input type="text" name="state" placeholder="State" class="form-control" required>
-				<input type="text" name="zipcode" placeholder="Zip Code" class="form-control" required>
-			</div>
-
-			<!-- Step 3: Payment -->
-			<div class="checkout-section">
-				<h3>Payment</h3>
-				<div id="paypal-button-container"></div>
-			</div>
-
-			<!-- Step 4: Review -->
-			<div class="checkout-section">
-				<h3>Review & Purchase</h3>
-				<p>Please review your order details before finalizing.</p>
-				<button class="btn btn-success btn-block">Place Order</button>
-			</div>
+			<button class="btn btn-dark btn-block">Continue</button>
 		</div>
 
-		<!-- Right: Order Summary -->
-		<div class="order-summary" style="flex: 1; background: #f9f9f9; padding: 20px; border-radius: 5px;">
-			<h3>Order Summary</h3>
-			<hr>
-			{% for item in items %}
-			<div class="order-item" style="display: flex; align-items: center; margin-bottom: 15px;">
-				<img src="{{item.product.imageURL}}" alt="{{item.product.name}}" style="width: 60px; height: 60px; object-fit: cover; margin-right: 10px;">
-				<div style="flex: 1;">
-					<p style="margin: 0;">{{item.product.name}}</p>
-					<small>Qty: {{item.quantity}}</small>
-				</div>
-				<p>₹{{item.get_total|floatformat:2}}</p>
-			</div>
-			{% endfor %}
-			<hr>
-			<p>Subtotal: ₹{{order.get_cart_total|floatformat:2}}</p>
-			<p>Tax: ₹0.00</p>
-			<h4>Total: ₹{{order.get_cart_total|floatformat:2}}</h4>
-			<div style="margin-top: 10px; font-size: 12px; text-align: center;">
-				<span>SECURE SSL CHECKOUT</span>
-			</div>
+		<!-- Step 2: Delivery -->
+		<div id="shipping-info" class="checkout-section">
+			<h3>Delivery</h3>
+			<input type="text" name="name" placeholder="Full Name" class="form-control" required>
+			<input type="text" name="address" placeholder="Address" class="form-control" required>
+			<input type="text" name="city" placeholder="City" class="form-control" required>
+			<input type="text" name="state" placeholder="State" class="form-control" required>
+			<input type="text" name="zipcode" placeholder="Zip Code" class="form-control" required>
 		</div>
 
+		<!-- Step 4: Review -->
+		<div class="checkout-section">
+			<h3>Review & Purchase</h3>
+			<p>Please review your order details before finalizing.</p>
+			<button id="form-button" class="btn btn-success btn-block">Place Order</button>
+		</div>
+
+		<!-- Step 3: Payment -->
+		<div id="payment-info" class="checkout-section hidden">
+			<h3>Payment</h3>
+			<div id="paypal-button-container"></div>
+		</div>
 	</div>
-	
-	<script src="https://www.paypal.com/sdk/js?client-id=YOUR-CLIENT-ID&currency=USD&disable-funding=credit"></script>
 
-	<script>
-		var total = '{{order.get_cart_total}}'
-        // Render the PayPal button into #paypal-button-container
-        paypal.Buttons({
+	<!-- Right: Order Summary -->
+	<div class="order-summary" style="flex: 1; background: #f9f9f9; padding: 20px; border-radius: 5px;">
+		<h3>Order Summary</h3>
+		<hr>
+		{% for item in items %}
+		<div class="order-item" style="display: flex; align-items: center; margin-bottom: 15px;">
+			<img src="{{item.product.imageURL}}" alt="{{item.product.name}}" style="width: 60px; height: 60px; object-fit: cover; margin-right: 10px;">
+			<div style="flex: 1;">
+				<p style="margin: 0;">{{item.product.name}}</p>
+				<small>Qty: {{item.quantity}}</small>
+			</div>
+			<p>₹{{item.get_total|floatformat:2}}</p>
+		</div>
+		{% endfor %}
+		<hr>
+		<p>Subtotal: ₹{{order.get_cart_total|floatformat:2}}</p>
+		<p>Tax: ₹0.00</p>
+		<h4>Total: ₹{{order.get_cart_total|floatformat:2}}</h4>
+		<div style="margin-top: 10px; font-size: 12px; text-align: center;">
+			<span>SECURE SSL CHECKOUT</span>
+		</div>
+	</div>
 
-        	style: {
-                color:  'blue',
-                shape:  'rect',
-            },
+</div>
 
-            // Set up the transaction
-            createOrder: function(data, actions) {
-                return actions.order.create({
-                    purchase_units: [{
-                        amount: {
-                            value:parseFloat(total).toFixed(2)
-                        }
-                    }]
-                });
-            },
+<!-- PayPal SDK (replace with your real client ID) -->
+{% comment %} <script src="https://www.paypal.com/sdk/js?client-id=YOUR-CLIENT-ID&currency=USD&disable-funding=credit"></script> {% endcomment %}
 
-            // Finalize the transaction
-            onApprove: function(data, actions) {
-                return actions.order.capture().then(function(details) {
-                    // Show a success message to the buyer
-                    submitFormData()
-                });
-            }
+<script src="https://www.paypal.com/sdk/js?client-id=test&currency=USD"></script>
 
-        }).render('#paypal-button-container');
-    </script>
+<script>
+	var total = '{{order.get_cart_total}}';
+	var user = '{{request.user}}';
+	var shipping = '{{order.shipping}}';
 
-	<script type="text/javascript">
-		var shipping = '{{order.shipping}}'
+	// Render PayPal buttons
+	paypal.Buttons({
 
-		if (shipping == 'False'){
-		 	document.getElementById('shipping-info').innerHTML = ''
+		style: {
+			color:  'blue',
+			shape:  'pill',
+			label:  'pay',
+			height: 40
+		},
+		
+		createOrder: function(data, actions) {
+			return fetch('/demo/checkout/api/paypal/order/create/', {
+				method: 'post'
+			}).then(function(res) {
+				return res.json();
+			}).then(function(orderData) {
+				return orderData.id;
+			});
+		},
+		onApprove: function(data, actions) {
+			return fetch('/demo/checkout/api/paypal/order/' + data.orderID + '/capture/', {
+				method: 'post'
+			}).then(function(res) {
+				return res.json();
+			}).then(function(orderData) {
+				var errorDetail = Array.isArray(orderData.details) && orderData.details[0];
+
+				if (errorDetail && errorDetail.issue === 'INSTRUMENT_DECLINED') {
+					return actions.restart(); 
+				}
+
+				if (errorDetail) {
+					var msg = 'Sorry, your transaction could not be processed.';
+					if (errorDetail.description) msg += '\n\n' + errorDetail.description;
+					if (orderData.debug_id) msg += ' (' + orderData.debug_id + ')';
+					return alert(msg); 
+				}
+
+				console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+				var transaction = orderData.purchase_units[0].payments.captures[0];
+				alert('Transaction '+ transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
+			});
 		}
 
-		if (user != 'AnonymousUser'){
-		 	document.getElementById('user-info').innerHTML = ''
-		 }
+	}).render('#paypal-button-container');
 
-		if (shipping == 'False' && user != 'AnonymousUser'){
-			//Hide entire form if user is logged in and shipping is false
-				document.getElementById('form-wrapper').classList.add("hidden");
-				//Show payment if logged in user wants to buy an item that does not require shipping
-			    document.getElementById('payment-info').classList.remove("hidden");
+	// Handle form submission
+	var formButton = document.getElementById('form-button');
+	if (formButton) {
+		formButton.addEventListener('click', function (e) {
+			e.preventDefault();
+			document.getElementById('payment-info').classList.remove("hidden");
+			formButton.classList.add("hidden");
+		});
+	}
+
+	function submitFormData() {
+		console.log('Submitting order...');
+
+		var userFormData = {
+			'name': null,
+			'email': null,
+			'total': total,
+		};
+
+		var shippingInfo = {
+			'address': null,
+			'city': null,
+			'state': null,
+			'zipcode': null,
+		};
+
+		if (shipping != 'False') {
+			shippingInfo.address = document.querySelector('[name="address"]').value;
+			shippingInfo.city = document.querySelector('[name="city"]').value;
+			shippingInfo.state = document.querySelector('[name="state"]').value;
+			shippingInfo.zipcode = document.querySelector('[name="zipcode"]').value;
 		}
 
-		var form = document.getElementById('form')
-		form.addEventListener('submit', function(e){
-	    	e.preventDefault()
-	    	console.log('Form Submitted...')
-	    	document.getElementById('form-button').classList.add("hidden");
-	    	document.getElementById('payment-info').classList.remove("hidden");
-	    })
+		if (user == 'AnonymousUser') {
+			userFormData.name = document.querySelector('[name="name"]').value;
+			userFormData.email = document.querySelector('[name="email"]').value;
+		}
 
-		/*
-	    document.getElementById('make-payment').addEventListener('click', function(e){
-	    	submitFormData()
-	    })
-	    */
+		console.log('Shipping Info:', shippingInfo);
+		console.log('User Info:', userFormData);
 
-	    function submitFormData(){
-	    	console.log('Payment button clicked')
-
-	    	var userFormData = {
-				'name':null,
-				'email':null,
-				'total':total,
-			}
-
-			var shippingInfo = {
-				'address':null,
-				'city':null,
-				'state':null,
-				'zipcode':null,
-			}
-
-			if (shipping != 'False'){
-	    		shippingInfo.address = form.address.value
-		    	shippingInfo.city = form.city.value
-		    	shippingInfo.state = form.state.value
-		    	shippingInfo.zipcode = form.zipcode.value
-	    	}
-
-	    	if (user == 'AnonymousUser'){
-	    		userFormData.name = form.name.value
-	    		userFormData.email = form.email.value
-	    	}
-
-	    	console.log('Shipping Info:', shippingInfo)
-	    	console.log('User Info:', userFormData)
-
-	    	var url = "/process_order/"
-	    	fetch(url, {
-	    		method:'POST',
-	    		headers:{
-	    			'Content-Type':'applicaiton/json',
-	    			'X-CSRFToken':csrftoken,
-	    		}, 
-	    		body:JSON.stringify({'form':userFormData, 'shipping':shippingInfo}),
-	    		
-	    	})
-	    	.then((response) => response.json())
-	    	.then((data) => {
+		var url = "/process_order/";
+		fetch(url, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				'X-CSRFToken': csrftoken,
+			},
+			body: JSON.stringify({ 'form': userFormData, 'shipping': shippingInfo }),
+		})
+			.then((response) => response.json())
+			.then((data) => {
 				console.log('Success:', data);
-				alert('Transaction completed');  
+				alert('Transaction completed');
 
-				cart = {}
-				document.cookie ='cart=' + JSON.stringify(cart) + ";domain=;path=/"
+				cart = {};
+				document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/";
 
-				window.location.href = "{% url 'shop' %}"
-
-				})
-	    }
-	</script>
+				window.location.href = "{% url 'shop' %}";
+			});
+	}
+</script>
 {% endblock content %}
